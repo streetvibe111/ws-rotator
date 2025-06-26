@@ -1,6 +1,6 @@
 export default {
   async fetch(request, env, ctx) {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbw-isiRZWzF8CQRHz5JOFf2ropVZeOwQgLH8YMleNs4nret0ny0E6V3rx3zr79v1qrnaw/exec");
+    const res = await fetch("https://script.google.com/macros/s/AKfycbx_Ef4iD8aUWqPbTSiHx64v4YyUDWwIZXN3h8V5ILm1/dev");
     const json = await res.json();
     const phone = json.phone;
 
