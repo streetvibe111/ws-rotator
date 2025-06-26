@@ -1,9 +1,22 @@
 export default {
-  async fetch(request) {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbx_Ef4iD8aUWqPbTSiHx64v4YyUDWwIZXN3h8V5ILm1/dev");
-    const phone = await response.text();
+  async fetch(request, env, ctx) {
+    try {
+      // Ganti URL Apps Script kau di sini
+      const apiUrl = 'https://script.google.com/macros/s/AKfycbx_Ef4iD8aUWqPbTSiHx64v4YyUDWwIZXN3h8V5ILm1/dev';
 
-    const url = `https://wa.me/${phone}?text=hi%20%2C%20salam%20saya%20nak%20tempah%20baju%20harga%20kilang%20%2C%20anggaran%20kuantiti%20%3D`;
-    return Response.redirect(url, 302);
-  }
-}
+      // Fetch nombor dari Google Sheet (Apps Script)
+      const response = await fetch(apiUrl);
+      const phone = (await response.text()).trim();
+
+      // WhatsApp link dengan ayat prefill
+      const prefillText = 'hi , salam saya nak tempah baju harga kilang , anggaran kuantiti =';
+      const redirectUrl = `https://wa.me/${phone}?text=${encodeURIComponent(prefillText)}`;
+
+      // Redirect user
+      return Response.redirect(redirectUrl, 302);
+
+    } catch (err) {
+      return new Response('Error fetching number: ' + err.message, { status: 500 });
+    }
+  },
+};
